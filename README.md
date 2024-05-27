@@ -13,7 +13,7 @@ This Project aims to develop a high-performance language translation model capab
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/65187b234965add2b08b2990/31vSqxldRSGEDNGwrJbFy.png)
 
-# Comaprision
+# Comaprision / Performance
 
 - English
 ```python
