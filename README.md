@@ -1,10 +1,9 @@
 
 
 
-# My Linkedin
+# Link to HuggingFace model
 
-Linkedin- [https://www.linkedin.com/in/suyash-ag/ ]
-Github- [https://github.com/Suyash018 ]
+Hugging Face - [https://huggingface.co/suyash2739/English_to_Hinglish_fintuned_lamma_3_8b_instruct ]
 
 # Project - A English to Hinglish Language Translater.
 This Project aims to develop a high-performance language translation model capable of translating standard English to Hinglish (a blend of Hindi and English commonly used in informal communication in India).
