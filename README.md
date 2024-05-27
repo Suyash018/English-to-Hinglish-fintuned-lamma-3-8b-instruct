@@ -13,6 +13,26 @@ This Project aims to develop a high-performance language translation model capab
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/65187b234965add2b08b2990/31vSqxldRSGEDNGwrJbFy.png)
 
+# Comaprision
+
+- English
+```python
+English = """Finance Minister Nirmala Sitharaman said, "There used to be a poverty index...a human development index and all of them continue, but today what is keenly watched is VIX, the volatility index of the markets." Stability of the government is important for markets to be efficient, she stated. PM Narendra Modi's third term will make markets function with stability, she added."""
+```
+- Gpt 4o
+```python
+Gpt 4o = """ Finance Minister Nirmala Sitharaman ne kaha, "Pehle ek poverty index hota tha...ek human development index hota tha aur yeh sab ab bhi hain, lekin aaj jo sabse zyada dekha ja raha hai, woh hai VIX, jo markets ka volatility index hai." Unhone kaha ki sarkar ki stability markets ke efficient hone ke liye zaroori hai. PM Narendra Modi ka teesra term markets ko stability ke saath function karne mein madad karega, unhone joda."""
+```
+
+- My model (Finetuned LLama model)
+```python
+LLama model = Finance Minister Nirmala Sitharaman ne kaha, "Pehle ek poverty index hota tha... ek human development index hota tha aur sab kuch ab bhi chal raha hai, lekin aaj jo kaafi zyada dekha ja raha hai, woh VIX hai, jo markets ki volatility ka index hai." Unhone kaha ki markets ke liye sarkar ki stability zaroori hai. PM Narendra Modi ke teesre term se markets stability ke saath function karenge, unhone joda.
+```
+
+
+![image/png](https://cdn-uploads.huggingface.co/production/uploads/65187b234965add2b08b2990/Rc3nlfnSVwu1dnzfxYb-Y.png)
+
+
 
 # Inference / How to use the model:
 
@@ -74,24 +94,6 @@ print(pipe(text))
 ```
 
 
-# Comaprision
-
-- English
-```python
-English = """Finance Minister Nirmala Sitharaman said, "There used to be a poverty index...a human development index and all of them continue, but today what is keenly watched is VIX, the volatility index of the markets." Stability of the government is important for markets to be efficient, she stated. PM Narendra Modi's third term will make markets function with stability, she added."""
-```
-- Gpt 4o
-```python
-Gpt 4o = """ Finance Minister Nirmala Sitharaman ne kaha, "Pehle ek poverty index hota tha...ek human development index hota tha aur yeh sab ab bhi hain, lekin aaj jo sabse zyada dekha ja raha hai, woh hai VIX, jo markets ka volatility index hai." Unhone kaha ki sarkar ki stability markets ke efficient hone ke liye zaroori hai. PM Narendra Modi ka teesra term markets ko stability ke saath function karne mein madad karega, unhone joda."""
-```
-
-- My model (Finetuned LLama model)
-```python
-LLama model = Finance Minister Nirmala Sitharaman ne kaha, "Pehle ek poverty index hota tha... ek human development index hota tha aur sab kuch ab bhi chal raha hai, lekin aaj jo kaafi zyada dekha ja raha hai, woh VIX hai, jo markets ki volatility ka index hai." Unhone kaha ki markets ke liye sarkar ki stability zaroori hai. PM Narendra Modi ke teesre term se markets stability ke saath function karenge, unhone joda.
-```
-
-
-![image/png](https://cdn-uploads.huggingface.co/production/uploads/65187b234965add2b08b2990/Rc3nlfnSVwu1dnzfxYb-Y.png)
 
 # Uploaded  model
 
