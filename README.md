@@ -56,16 +56,6 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 )
 ```
 
-```python
-prompt = """Translate the input from English to Hinglish to give the response.
-
-### Input:
-{}
-
-### Response:
-{}"""
-
-```
 
 ```python
 
