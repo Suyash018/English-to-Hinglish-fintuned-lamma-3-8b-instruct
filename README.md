@@ -8,6 +8,10 @@ Hugging Face - [https://huggingface.co/suyash2739/English_to_Hinglish_fintuned_l
 # Project - A English to Hinglish Language Translater.
 This Project aims to develop a high-performance language translation model capable of translating standard English to Hinglish (a blend of Hindi and English commonly used in informal communication in India).
 
+This model is fine-tuned by me and Huggingface repo is linked above. Cannot upload model to github as repo size in github is limited.
+
+ipynb file on how to use the repo is added
+
 # Loss Curve
 
 
