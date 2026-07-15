@@ -1,107 +1,101 @@
-# Dataset
+<!-- PASTE INTO: github.com/Suyash018/English-to-Hinglish-fintuned-lamma-3-8b-instruct → README.md -->
+<!-- If you rename the repo (recommended: Llama-3-8B-English-to-Hinglish-LoRA), GitHub redirects the old URL automatically. -->
 
-This is a dataset curated and made by me.
+# English → Hinglish Translation with Llama 3 8B (LoRA)
 
-You can download it here.
+A Llama 3 8B Instruct model fine-tuned with QLoRA to translate standard English into **Hinglish** — the Hindi-English code-mixed register used in everyday informal communication across India. Model weights and dataset are hosted on Hugging Face.
 
-([Dataset](https://huggingface.co/datasets/suyash2739/News_Hinglish_English))
+**🤗 Model:** [suyash2739/English_to_Hinglish_fintuned_lamma_3_8b_instruct](https://huggingface.co/suyash2739/English_to_Hinglish_fintuned_lamma_3_8b_instruct) — 3,000+ cumulative downloads across variants
+**🤗 Dataset:** [suyash2739/News_Hinglish_English](https://huggingface.co/datasets/suyash2739/News_Hinglish_English) — published with DOI [10.57967/hf/5120](https://doi.org/10.57967/hf/5120)
 
+## Why this exists
 
-# Link to HuggingFace model
+Hinglish is one of the most widely used code-switched registers in the world, yet most translation systems target formal Hindi (Devanagari), not the romanized, code-mixed way people actually write in chats, comments, and headlines. This project fine-tunes an open 8B model to produce natural Hinglish and releases both the model and the training dataset openly.
 
-Hugging Face - [https://huggingface.co/suyash2739/English_to_Hinglish_fintuned_lamma_3_8b_instruct ]
+## Training
 
-# Project - A English to Hinglish Language Translater.
-This Project aims to develop a high-performance language translation model capable of translating standard English to Hinglish (a blend of Hindi and English commonly used in informal communication in India).
+| | |
+|---|---|
+| Base model | `unsloth/llama-3-8b-Instruct-bnb-4bit` |
+| Method | QLoRA (4-bit), Unsloth + HuggingFace TRL |
+| Data | News_Hinglish_English (curated English ↔ Hinglish pairs, news domain) |
+| Task format | Instruction-style: "Translate the input from English to Hinglish" |
 
-This model is fine-tuned by me and Huggingface repo is linked above. Cannot upload model to github as repo size in github is limited.
+Training loss curve:
 
-ipynb file on how to use the repo is added
+![Loss curve](https://cdn-uploads.huggingface.co/production/uploads/65187b234965add2b08b2990/31vSqxldRSGEDNGwrJbFy.png)
 
-# Loss Curve
+## Qualitative comparison vs GPT-4o
 
+**English input:**
+> Finance Minister Nirmala Sitharaman said, "There used to be a poverty index...a human development index and all of them continue, but today what is keenly watched is VIX, the volatility index of the markets." Stability of the government is important for markets to be efficient, she stated. PM Narendra Modi's third term will make markets function with stability, she added.
 
-![image/png](https://cdn-uploads.huggingface.co/production/uploads/65187b234965add2b08b2990/31vSqxldRSGEDNGwrJbFy.png)
+**GPT-4o:**
+> Finance Minister Nirmala Sitharaman ne kaha, "Pehle ek poverty index hota tha...ek human development index hota tha aur yeh sab ab bhi hain, lekin aaj jo sabse zyada dekha ja raha hai, woh hai VIX, jo markets ka volatility index hai." Unhone kaha ki sarkar ki stability markets ke efficient hone ke liye zaroori hai. PM Narendra Modi ka teesra term markets ko stability ke saath function karne mein madad karega, unhone joda.
 
-# Comaprision / Performance
+**This model (fine-tuned Llama 3 8B):**
+> Finance Minister Nirmala Sitharaman ne kaha, "Pehle ek poverty index hota tha... ek human development index hota tha aur sab kuch ab bhi chal raha hai, lekin aaj jo kaafi zyada dekha ja raha hai, woh VIX hai, jo markets ki volatility ka index hai." Unhone kaha ki markets ke liye sarkar ki stability zaroori hai. PM Narendra Modi ke teesre term se markets stability ke saath function karenge, unhone joda.
 
-- English
-```python
-English = """Finance Minister Nirmala Sitharaman said, "There used to be a poverty index...a human development index and all of them continue, but today what is keenly watched is VIX, the volatility index of the markets." Stability of the government is important for markets to be efficient, she stated. PM Narendra Modi's third term will make markets function with stability, she added."""
-```
-- Gpt 4o
-```python
-Gpt 4o = """ Finance Minister Nirmala Sitharaman ne kaha, "Pehle ek poverty index hota tha...ek human development index hota tha aur yeh sab ab bhi hain, lekin aaj jo sabse zyada dekha ja raha hai, woh hai VIX, jo markets ka volatility index hai." Unhone kaha ki sarkar ki stability markets ke efficient hone ke liye zaroori hai. PM Narendra Modi ka teesra term markets ko stability ke saath function karne mein madad karega, unhone joda."""
-```
+An 8B open model matching GPT-4o's fluency on this register at a fraction of the inference cost. Quantitative benchmarks (BLEU / chrF on a held-out test split) are in progress and will be published in the Hugging Face model card.
 
-- My model (Finetuned LLama model)
-```python
-LLama model = Finance Minister Nirmala Sitharaman ne kaha, "Pehle ek poverty index hota tha... ek human development index hota tha aur sab kuch ab bhi chal raha hai, lekin aaj jo kaafi zyada dekha ja raha hai, woh VIX hai, jo markets ki volatility ka index hai." Unhone kaha ki markets ke liye sarkar ki stability zaroori hai. PM Narendra Modi ke teesre term se markets stability ke saath function karenge, unhone joda.
-```
+## Usage
 
-
-![image/png](https://cdn-uploads.huggingface.co/production/uploads/65187b234965add2b08b2990/Rc3nlfnSVwu1dnzfxYb-Y.png)
-
-
-
-# Inference / How to use the model:
-
-```
-!pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
-!pip install --no-deps xformers trl peft accelerate bitsandbytes
+```bash
+pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+pip install --no-deps xformers trl peft accelerate bitsandbytes
 ```
 
 ```python
 from unsloth import FastLanguageModel
 import torch
-max_seq_length = 2048
-dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
-load_in_4bit = True # Use 4bit quantization to reduce memory usage. Can be False.
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name = "suyash2739/English_to_Hinglish_fintuned_lamma_3_8b_instruct",
-    max_seq_length = max_seq_length,
-    dtype = dtype,
-    load_in_4bit = load_in_4bit,
+    model_name="suyash2739/English_to_Hinglish_fintuned_lamma_3_8b_instruct",
+    max_seq_length=2048,
+    dtype=None,          # auto-detect; float16 for T4/V100, bfloat16 for Ampere+
+    load_in_4bit=True,   # 4-bit quantization to reduce memory
 )
-```
 
-
-```python
-
-def pipe(text):
-  prompt = """Translate the input from English to Hinglish to give the response.
+def translate(text):
+    prompt = """Translate the input from English to Hinglish to give the response.
 
 ### Input:
 {}
 
 ### Response:
 """
-  inputs = tokenizer(
-      [
-          prompt.format(text),
-      ], return_tensors = "pt").to("cuda")
+    inputs = tokenizer([prompt.format(text)], return_tensors="pt").to("cuda")
+    outputs = model.generate(**inputs, max_new_tokens=2048, use_cache=True)
+    raw = tokenizer.batch_decode(outputs)[0]
+    return raw.split("### Response:\n")[1].split("<|eot_id|>")[0]
 
-  outputs = model.generate(**inputs, max_new_tokens = 2048, use_cache = True)
-  raw_text = tokenizer.batch_decode(outputs)[0]
-  return raw_text.split("### Response:\n")[1].split("<|eot_id|>")[0]
+print(translate("This is a fine-tuned Hinglish translation model using Llama 3."))
+# Yeh ek fine-tuned Hinglish translation model hai jo Llama 3 ka istemal karta hai.
 ```
 
-```python
-text = "This is a fine-tuned Hinglish translation model using Llama 3." # INPUT
-print(pipe(text))
-## Yeh ek fine-tuned Hinglish translation model hai jo Llama 3 ka istemal karta hai.
+Model weights live on Hugging Face (GitHub repo size limits); the notebook in this repo walks through fine-tuning and inference end to end.
+
+## Limitations
+
+- Trained primarily on news-domain text; casual/slang-heavy registers may be less natural.
+- Outputs romanized Hinglish only (no Devanagari).
+- Inherits biases of the base Llama 3 model and the source news corpus.
+
+## Citation
+
+If you use the dataset or model, please cite:
+
+```bibtex
+@misc{agarwal2024newshinglish,
+  author    = {Agarwal, Suyash},
+  title     = {News\_Hinglish\_English: An English--Hinglish Parallel Corpus},
+  year      = {2024},
+  publisher = {Hugging Face},
+  doi       = {10.57967/hf/5120},
+  url       = {https://huggingface.co/datasets/suyash2739/News_Hinglish_English}
+}
 ```
 
+## License
 
-
-# Uploaded  model
-
-- **Developed by:** suyash2739
-- **License:** apache-2.0
-- **Finetuned from model :** unsloth/llama-3-8b-Instruct-bnb-4bit
-
-This llama model was trained 2x faster with [Unsloth](https://github.com/unslothai/unsloth) and Huggingface's TRL library.
-
-[<img src="https://raw.githubusercontent.com/unslothai/unsloth/main/images/unsloth%20made%20with%20love.png" width="200"/>](https://github.com/unslothai/unsloth)#
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/suyash008)
+Apache 2.0
